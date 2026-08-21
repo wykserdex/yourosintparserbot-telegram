@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yourosint"
+version = "2.0.0"
+description = "Modern High-Performance OSINT & Intelligence Graph Platform for Telegram"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "wykse" }]
+license = { text = "MIT" }
+dependencies = [
+    "telethon>=1.36.0,<2.0.0",
+    "sqlalchemy[asyncio]>=2.0.0,<3.0.0",
+    "alembic>=1.13.0,<2.0.0",
+    "asyncpg>=0.29.0,<1.0.0",
+    "pydantic>=2.6.0,<3.0.0",
+    "pydantic-settings>=2.2.0,<3.0.0",
+    "fastapi>=0.110.0,<1.0.0",
+    "uvicorn>=0.28.0,<1.0.0",
+    "httpx>=0.27.0,<1.0.0",
+    "networkx>=3.2,<4.0",
+    "structlog>=24.1.0,<27.0.0",
+    "python-dotenv>=1.0.0,<2.0.0",
+    "tenacity>=8.2.0,<10.0.0",
+    "phonenumbers>=8.13.0,<9.0.0",
+    "aiosqlite>=0.20.0,<1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0,<10.0.0",
+    "pytest-asyncio>=0.23.0,<2.0.0",
+    "pytest-cov>=4.1.0,<6.0.0",
+    "mypy>=1.10.0,<2.0.0",
+    "ruff>=0.4.0,<1.0.0",
+]
+
+[project.scripts]
+yourosint = "yourosint.api.app:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra -q --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "W", "C4", "RET", "SIM"]
+ignore = ["E501", "B008"]
+
+
+[tool.mypy]
+python_version = "3.11"
+strict_optional = true
+warn_unused_ignores = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
